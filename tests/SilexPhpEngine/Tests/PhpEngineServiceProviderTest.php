@@ -10,7 +10,9 @@ class PhpEngineServiceProviderTest extends \PHPUnit_Framework_TestCase
 	public function testRegister()
 	{
 		$app = new Application;
-		$app->register(new PhpEngineServiceProvider);
+		$app->register(new PhpEngineServiceProvider, array(
+			'view.class_path' => __DIR__.'/../../../vendor'
+		));
 
 		$app->get('/', function() use($app) {
 			return $app['view']->render(__DIR__.'/../../view.phtml', array(
@@ -29,9 +31,12 @@ class PhpEngineServiceProviderTest extends \PHPUnit_Framework_TestCase
 
 	public function testCustomHelpers()
 	{
-		$options = array('view.helpers' => array(
-			new \Symfony\Component\Templating\Helper\AssetsHelper
-		));
+		$options = array(
+			'view.class_path' => __DIR__.'/../../../vendor',
+			'view.helpers' => array(
+				new \Symfony\Component\Templating\Helper\AssetsHelper
+			)
+		);
 
 		$app = new Application;
 		$app->register(new PhpEngineServiceProvider, $options);
