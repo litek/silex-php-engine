@@ -1,0 +1,3 @@
+[submodule "vendor/Templating"]
+	path = vendor/Templating
+	url = https://github.com/symfony/Templating.git
