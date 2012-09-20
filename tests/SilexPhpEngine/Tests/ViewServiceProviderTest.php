@@ -2,7 +2,7 @@
 namespace SilexPhpEngine\Tests;
 
 use Silex\Application;
-use SilexPhpEngine\TemplateServiceProvider;
+use SilexPhpEngine\ViewServiceProvider;
 use Symfony\Component\HttpFoundation\Request;
 
 class TemplateServiceProviderTest extends \PHPUnit_Framework_TestCase
@@ -10,7 +10,7 @@ class TemplateServiceProviderTest extends \PHPUnit_Framework_TestCase
     public function testRegister()
     {
         $app = new Application;
-        $app->register(new TemplateServiceProvider, array(
+        $app->register(new ViewServiceProvider, array(
             'view.class_path' => __DIR__.'/../../../vendor'
         ));
 
@@ -39,7 +39,7 @@ class TemplateServiceProviderTest extends \PHPUnit_Framework_TestCase
         );
 
         $app = new Application;
-        $app->register(new TemplateServiceProvider, $options);
+        $app->register(new ViewServiceProvider, $options);
 
         $app['view'];
         $this->assertTrue($app['view']->has('assets'));

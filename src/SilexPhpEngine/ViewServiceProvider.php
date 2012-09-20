@@ -9,7 +9,7 @@ use Symfony\Component\Templating\Loader\FilesystemLoader;
 use Symfony\Component\Templating\TemplateNameParser;
 
 
-class TemplateServiceProvider implements ServiceProviderInterface
+class ViewServiceProvider implements ServiceProviderInterface
 {
     public function register(Application $app)
     {       
