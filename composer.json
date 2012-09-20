@@ -1,0 +1,10 @@
+{
+  "minimum-stability": "dev",
+  "name": "litek/silex-php-engine",
+  "require": {
+    "symfony/templating": "2.1.x"
+  },
+  "require-dev": {
+    "silex/silex": "1.0.x"
+  }
+}
