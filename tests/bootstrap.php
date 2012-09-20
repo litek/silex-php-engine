@@ -1,8 +1,3 @@
 <?php
-require_once 'silex.phar';
-
-use Symfony\Component\ClassLoader\UniversalClassLoader;
-
-$loader = new UniversalClassLoader();
-$loader->registerNamespace('SilexPhpEngine', __DIR__.'/../src');
-$loader->register();
+$loader = require __DIR__.'/../vendor/autoload.php';
+$loader->add('SilexPhpEngine', __DIR__.'/../src');
