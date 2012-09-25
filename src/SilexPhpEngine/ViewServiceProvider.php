@@ -41,10 +41,6 @@ class ViewServiceProvider implements ServiceProviderInterface
                 new \Symfony\Component\Templating\Helper\SlotsHelper
             );
         });
-
-        if (isset($app['view.class_path'])) {
-            $app['autoloader']->registerNamespace('Symfony\\Component\\Templating', $app['view.class_path']);
-        }
     }
 
     public function boot(Application $app)
