@@ -9,7 +9,8 @@
   },
   "autoload": {
     "psr-0": {
-      "SilexPhpEngine": "src/"
+      "SilexPhpEngine": "src/",
+      "Parcel": "src/"
     }
   }
 }
