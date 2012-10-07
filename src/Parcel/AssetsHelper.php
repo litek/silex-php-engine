@@ -16,7 +16,7 @@ class AssetsHelper extends Helper
   {
     $this->config = array_merge(array(
       'debug' => false,
-      'root'  => '',
+      'root'  => '/assets',
       'server' => array(
         'port' => 8000,
         'host' => '127.0.0.1'
@@ -35,10 +35,15 @@ class AssetsHelper extends Helper
    */
   static public function create(Application $app)
   {
-    $config = isset($app['assets']) ? $app['assets'] : array();
+    $config = array();
+    $config = isset($app['assets.debug']) ? $app['assets.debug'] : $app['debug'];
 
-    if (!isset($config['debug'])) {
-      $config['debug'] = $app['debug'];
+    if (isset($app['assets.root'])) {
+      $config['root'] = $app['assets.root'];
+    }
+
+    if (isset($app['assets.server'])) {
+      $config['server'] = $app['assets.server'];
     }
 
     return new self($config);
