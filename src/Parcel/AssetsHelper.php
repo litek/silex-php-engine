@@ -35,8 +35,9 @@ class AssetsHelper extends Helper
    */
   static public function create(Application $app)
   {
-    $config = array();
-    $config = isset($app['assets.debug']) ? $app['assets.debug'] : $app['debug'];
+    $config = array(
+      'debug' => isset($app['assets.debug']) ? $app['assets.debug'] : $app['debug']
+    );
 
     if (isset($app['assets.root'])) {
       $config['root'] = $app['assets.root'];
