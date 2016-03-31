@@ -5,6 +5,14 @@ use Silex\Application;
 use SilexPhpEngine\ViewServiceProvider;
 use Symfony\Component\HttpFoundation\Request;
 
+class TestHelper extends \Symfony\Component\Templating\Helper\Helper
+{
+    public function getName()
+    {
+        return 'test';
+    }
+}
+
 class TemplateServiceProviderTest extends \PHPUnit_Framework_TestCase
 {
     public function testRegister()
@@ -34,7 +42,7 @@ class TemplateServiceProviderTest extends \PHPUnit_Framework_TestCase
         $options = array(
             'view.class_path' => __DIR__.'/../../../vendor',
             'view.helpers' => array(
-                new \Symfony\Component\Templating\Helper\AssetsHelper
+                new TestHelper()
             )
         );
 
@@ -42,7 +50,7 @@ class TemplateServiceProviderTest extends \PHPUnit_Framework_TestCase
         $app->register(new ViewServiceProvider, $options);
 
         $app['view'];
-        $this->assertTrue($app['view']->has('assets'));
+        $this->assertTrue($app['view']->has('test'));
         $this->assertTrue($app['view']->has('slots'));
     }
 }
