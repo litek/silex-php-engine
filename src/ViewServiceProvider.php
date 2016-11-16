@@ -1,8 +1,8 @@
 <?php
 namespace SilexPhpEngine;
 
-use Silex\ServiceProviderInterface;
-use Silex\Application;
+use Pimple\ServiceProviderInterface;
+use Pimple\Container;
 
 use Symfony\Component\Templating\PhpEngine;
 use Symfony\Component\Templating\Loader\FilesystemLoader;
@@ -11,9 +11,9 @@ use Symfony\Component\Templating\TemplateNameParser;
 
 class ViewServiceProvider implements ServiceProviderInterface
 {
-    public function register(Application $app)
-    {       
-        $app['view'] = $app->share(function($app) {
+    public function register(Container $app)
+    {
+        $app['view'] = function($app) {
             $engine  = $app['view.engine'];
 
             $helpers = isset($app['view.helpers']) ? $app['view.helpers'] : array();
@@ -21,30 +21,25 @@ class ViewServiceProvider implements ServiceProviderInterface
             $engine->setHelpers($helpers);
 
             return $engine;
-        });
+        };
 
-        $app['view.engine'] = $app->share(function($app) {
+        $app['view.engine'] = function($app) {
             return new PhpEngine($app['view.parser'], $app['view.loader']);
-        });
+        };
 
-        $app['view.loader'] = $app->share(function($app) {
+        $app['view.loader'] = function($app) {
             $paths = isset($app['view.paths']) ? $app['view.paths'] : array();
             return new FileSystemLoader($paths);
-        });
+        };
 
-        $app['view.parser'] = $app->share(function() {
+        $app['view.parser'] = function() {
             return new TemplateNameParser;
-        });
+        };
 
-        $app['view.default_helpers'] = $app->share(function() {
+        $app['view.default_helpers'] = function() {
             return array(
                 new \Symfony\Component\Templating\Helper\SlotsHelper
             );
-        });
-    }
-
-    public function boot(Application $app)
-    {
-        
+        };
     }
 }
